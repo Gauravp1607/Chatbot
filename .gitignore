@@ -23,7 +23,6 @@ Thumbs.db
 ! .env.example
 
 # Android project (website-only upload)
-android-app/
 
 # Generated caches
 VScode/LivestockAI/.venv/
