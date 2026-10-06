@@ -1,4 +1,5 @@
 # Python
+a/.venv/
 .venv/
 venv/
 __pycache__/
@@ -15,21 +16,16 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Environment secrets
+# Secret env files
 .env
 .env.local
 .env.*
 ! .env.example
 
-# Android / Gradle
-android-app/.gradle/
-android-app/.idea/
-android-app/local.properties
-android-app/**/build/
-android-app/app/build/
-android-app/build/
+# Android project (website-only upload)
+android-app/
 
-# Python backend generated folders
+# Generated caches
 VScode/LivestockAI/.venv/
 VScode/LivestockAI/__pycache__/
 VScode/LivestockAI/.pytest_cache/
