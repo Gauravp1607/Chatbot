@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | About Us{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/support-pages.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="metrics-grid">
+            {% for stat in statistics %}
+            <div class="page-card metric-card reveal">
+                <div class="metric-icon"><i class="fa-solid {{ stat.icon }}"></i></div>
+                <strong>{{ stat.stat_value }}{{ stat.stat_suffix }}</strong>
+                <div>{{ stat.stat_label }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container site-container">
+        <div class="features-grid">
+            <div class="page-card feature-card reveal"><i class="fa-solid fa-robot"></i><h3 class="mt-3">AI Assistant</h3><p>Search smarter and ask natural language questions.</p></div>
+            <div class="page-card feature-card reveal"><i class="fa-solid fa-notes-medical"></i><h3 class="mt-3">Disease Detection</h3><p>Check health signals before making a purchase.</p></div>
+            <div class="page-card feature-card reveal"><i class="fa-solid fa-location-dot"></i><h3 class="mt-3">Nearby Animals</h3><p>Find animals close to your current location.</p></div>
+            <div class="page-card feature-card reveal"><i class="fa-solid fa-shield-heart"></i><h3 class="mt-3">Trusted Sellers</h3><p>Verified profiles and strong trust indicators.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container site-container">
+        <div class="section-head reveal">
+            <div><span class="eyebrow">Testimonials</span><h2>What users say</h2></div>
+        </div>
+        <div class="team-grid">
+            {% for testimonial in testimonials %}
+            <div class="page-card team-card reveal">
+                <img class="team-avatar" src="{{ testimonial.avatar }}" alt="{{ testimonial.full_name }}">
+                <h3 class="mt-3">{{ testimonial.full_name }}</h3>
+                <div class="meta-text">{{ testimonial.role_name }}</div>
+                <p class="mt-2">{{ testimonial.quote }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container site-container">
+        <div class="page-card p-4 reveal">
+            <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                <div>
+                    <span class="eyebrow">Join LivestockAI Today</span>
+                    <h2 class="mt-3">A modern marketplace for livestock commerce</h2>
+                </div>
+                <a href="{{ url_for('animals') }}" class="btn btn-hero">Browse Animals</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

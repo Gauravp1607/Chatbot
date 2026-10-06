@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light site-navbar" id="siteNavbar">
+    <div class="container site-container d-flex flex-wrap align-items-center justify-content-between">
+        <a class="navbar-brand brand-mark" href="{{ url_for('index') }}">
+            <span class="brand-badge"><i class="fa-solid fa-seedling"></i></span>
+            <span>LivestockAI</span>
+        </a>
+        
+        <!-- Right side mobile action & toggler button -->
+        <div class="d-flex align-items-center gap-2">
+            {% if current_user %}
+            <a href="{{ url_for('profile') }}" class="btn btn-sm btn-soft rounded-circle d-lg-none p-0 d-flex align-items-center justify-content-center" style="width:38px;height:38px;" title="Profile">
+                <i class="fa-solid fa-user text-success"></i>
+            </a>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="btn btn-sm btn-primary site-btn d-lg-none py-1 px-3 fs-7" style="border-radius: 10px;">Login</a>
+            {% endif %}
+
+            <!-- Top Right Hamburger Menu Button -->
+            <button class="navbar-toggler mobile-toggler-btn" type="button" onclick="toggleMobileMenu(event)" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars fs-4 text-success"></i>
+            </button>
+        </div>
+
+        <!-- Collapsible Mobile Navigation Drawer -->
+        <div class="collapse navbar-collapse w-100" id="navbarNav">
+            <ul class="navbar-nav mx-auto nav-links">
+                <li class="nav-item"><a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="{{ url_for('index') }}"><i class="fa-solid fa-house me-2 text-success"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'animals' %}active{% endif %}" href="{{ url_for('animals') }}"><i class="fa-solid fa-cow me-2 text-success"></i> Animals</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'sell' %}active{% endif %}" href="{{ url_for('sell_animal') }}" title="Sell Animal"><i class="fa-solid fa-plus-circle me-2 text-success"></i> Sell Animal</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'assistant' %}active{% endif %}" href="{{ url_for('ai_assistant') }}" title="AI Assistant"><i class="fa-solid fa-robot me-2 text-success"></i> AI Assistant</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'disease' %}active{% endif %}" href="{{ url_for('disease_detection') }}" title="Disease Scanner"><i class="fa-solid fa-stethoscope me-2 text-success"></i> Disease Scanner</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'nearby' %}active{% endif %}" href="{{ url_for('nearby_animals') }}" title="Nearby Animals"><i class="fa-solid fa-location-dot me-2 text-success"></i> Nearby Mandis</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'about' %}active{% endif %}" href="{{ url_for('about_us') }}" title="About Us"><i class="fa-solid fa-circle-info me-2 text-success"></i> About Us</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'contact' %}active{% endif %}" href="{{ url_for('contact_us') }}" title="Contact Us"><i class="fa-solid fa-envelope me-2 text-success"></i> Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'wishlist' %}active{% endif %}" href="{{ url_for('wishlist') }}"><i class="fa-solid fa-heart me-2 text-success"></i> Wishlist</a></li>
+                <li class="nav-item"><a class="nav-link {% if active_page == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                {% if current_user and current_user_role == 'admin' %}
+                <li class="nav-item"><a class="nav-link {% if active_page == 'admin-dashboard' %}active{% endif %}" href="{{ url_for('admin_dashboard') }}"><i class="fa-solid fa-user-shield me-2 text-success"></i> Admin Dashboard</a></li>
+                {% endif %}
+            </ul>
+            <div class="nav-actions mt-3 mt-lg-0">
+                <a href="{{ url_for('wishlist') }}" class="btn btn-soft"><i class="fa-regular fa-heart me-1"></i> Wishlist</a>
+                {% if current_user %}
+                <a href="{{ url_for('dashboard') }}" class="btn btn-soft"><i class="fa-solid fa-chart-line me-1"></i> Dashboard</a>
+                <div class="dropdown d-inline">
+                    <button class="btn btn-outline-secondary dropdown-toggle nav-user-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Account menu">
+                        <i class="fa-solid fa-circle-user me-1"></i> {{ current_user.full_name.split(' ')[0] }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                        <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fa-solid fa-id-badge me-2 text-muted"></i> Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-primary site-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="btn btn-soft">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+function toggleMobileMenu(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    var nav = document.getElementById('navbarNav');
+    if (nav) {
+        if (nav.classList.contains('show')) {
+            nav.classList.remove('show');
+            nav.style.setProperty('display', 'none', 'important');
+        } else {
+            nav.classList.add('show');
+            nav.style.setProperty('display', 'block', 'important');
+        }
+    }
+}
+</script>
+
+<!-- Mobile Bottom Navigation Dock (Visible on Mobile Devices <= 768px) -->
+<nav class="mobile-bottom-nav d-md-none" aria-label="Mobile Navigation Dock">
+    <a href="{{ url_for('index') }}" class="mobile-nav-item {% if active_page == 'home' %}active{% endif %}">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="{{ url_for('animals') }}" class="mobile-nav-item {% if active_page == 'animals' %}active{% endif %}">
+        <i class="fa-solid fa-cow"></i>
+        <span>Market</span>
+    </a>
+    <a href="{{ url_for('sell_animal') }}" class="mobile-nav-item mobile-nav-item-primary {% if active_page == 'sell' %}active{% endif %}">
+        <div class="mobile-nav-fab">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <span>Sell</span>
+    </a>
+    <a href="{{ url_for('disease_detection') }}" class="mobile-nav-item {% if active_page == 'disease' %}active{% endif %}">
+        <i class="fa-solid fa-stethoscope"></i>
+        <span>Disease</span>
+    </a>
+    <a href="{{ url_for('ai_assistant') }}" class="mobile-nav-item {% if active_page == 'assistant' %}active{% endif %}">
+        <i class="fa-solid fa-robot"></i>
+        <span>AI Vet</span>
+    </a>
+</nav>

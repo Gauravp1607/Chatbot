@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Animals Marketplace{% endblock %}
+
+{% block content %}
+<section class="animals-hero">
+    <div class="container site-container">
+        <div class="animals-hero-inner reveal">
+            <div>
+                <span class="eyebrow">All Animals</span>
+                <h1>Discover healthy livestock near you</h1>
+                <p>Filter by breed, gender, vaccination, and price to find the right match faster.</p>
+            </div>
+            <form class="animals-search" method="get" action="{{ url_for('animals') }}">
+                <input type="text" class="form-control hero-input" name="search" value="{{ search }}" placeholder="Search by breed, type, or location...">
+                <button class="btn btn-hero" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="section-block animals-page">
+    <div class="container site-container">
+        <div class="animals-toolbar reveal">
+            <div class="toolbar-left">
+                <strong>{{ total }} animals found</strong>
+                <span>Showing {{ ((page - 1) * per_page) + 1 if total else 0 }}-{{ ((page - 1) * per_page) + animals|length }} of {{ total }}</span>
+            </div>
+            <form class="toolbar-right" method="get" action="{{ url_for('animals') }}">
+                <input type="hidden" name="search" value="{{ search }}">
+                <input type="hidden" name="category" value="{{ category_id }}">
+                <input type="hidden" name="breed" value="{{ breed }}">
+                <input type="hidden" name="gender" value="{{ gender }}">
+                <input type="hidden" name="vaccinated" value="{{ vaccinated }}">
+                <label class="sr-only" for="sort">Sort</label>
+                <select id="sort" name="sort" class="form-control hero-input" onchange="this.form.submit()">
+                    <option value="latest" {% if sort == 'latest' %}selected{% endif %}>Latest Added</option>
+                    <option value="price_low" {% if sort == 'price_low' %}selected{% endif %}>Price Low to High</option>
+                    <option value="price_high" {% if sort == 'price_high' %}selected{% endif %}>Price High to Low</option>
+                    <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest</option>
+                </select>
+            </form>
+        </div>
+
+        <!-- Mobile Filter Toggle Button -->
+        <button class="btn btn-soft d-lg-none w-100 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanelCollapse" aria-expanded="false" aria-controls="filterPanelCollapse">
+            <i class="fa-solid fa-filter me-2 text-success"></i> Filter & Sort Listings
+        </button>
+
+        <div class="animals-layout">
+            <aside class="filter-panel collapse d-lg-block reveal" id="filterPanelCollapse">
+                <form method="get" action="{{ url_for('animals') }}" class="filter-form">
+                    <div class="filter-head">
+                        <h3>Filters</h3>
+                        <a href="{{ url_for('animals') }}">Reset All</a>
+                    </div>
+                    <input type="hidden" name="sort" value="{{ sort }}">
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <select name="category" class="form-control hero-input">
+                            <option value="">All</option>
+                            {% for category in categories %}
+                            <option value="{{ category.category_id }}" {% if category_id|string == category.category_id|string %}selected{% endif %}>{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Breed</label>
+                        <select name="breed" class="form-control hero-input">
+                            <option value="">All breeds</option>
+                            {% for breed_option in breed_options %}
+                            <option value="{{ breed_option.breed }}" {% if breed == breed_option.breed %}selected{% endif %}>{{ breed_option.animal_type }} • {{ breed_option.breed }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control hero-input">
+                            <option value="">All</option>
+                            <option value="Male" {% if gender == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if gender == 'Female' %}selected{% endif %}>Female</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Vaccinated</label>
+                        <select name="vaccinated" class="form-control hero-input">
+                            <option value="">All</option>
+                            <option value="Yes" {% if vaccinated == 'Yes' %}selected{% endif %}>Yes</option>
+                            <option value="No" {% if vaccinated == 'No' %}selected{% endif %}>No</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <input type="text" name="search" value="{{ search }}" class="form-control hero-input" placeholder="Location or keyword">
+                    </div>
+                    <button class="btn btn-hero w-100" type="submit">Apply Filters</button>
+                </form>
+            </aside>
+
+            <div class="animal-grid animal-grid-page">
+                {% for animal in animals %}
+                <article class="animal-card reveal">
+                    <div class="animal-image-wrap">
+                        <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}">
+                        <span class="verified-chip"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <div class="animal-card-body">
+                        <div class="d-flex justify-content-between align-items-start gap-2">
+                            <div>
+                                <h3>{{ animal.animal_name }}</h3>
+                                <p>{{ animal.breed }} • {{ animal.location }}</p>
+                            </div>
+                            <span class="price-tag">₹{{ '{:,.0f}'.format(animal.price) }}</span>
+                        </div>
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="{{ url_for('animal_detail', animal_id=animal.animal_id) }}" class="btn btn-view flex-grow-1">View Details</a>
+                            {% if current_user %}
+                            <form method="post" action="{{ url_for('add_to_wishlist', animal_id=animal.animal_id) }}" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <button type="submit" class="btn btn-soft px-3" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fa-solid fa-cow fa-3x text-muted mb-3"></i>
+                    <h3>No animals match your filters</h3>
+                    <p>Try resetting filters or searching with different keywords.</p>
+                    <a href="{{ url_for('animals') }}" class="btn btn-hero mt-2">Reset Filters</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if total_pages > 1 %}
+        <nav class="pagination-nav mt-4" aria-label="Animal pages">
+            <ul class="pagination justify-content-center flex-wrap gap-1">
+                {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('animals', page=page-1, search=search, category=category_id, breed=breed, gender=gender, vaccinated=vaccinated, sort=sort) }}">Prev</a>
+                </li>
+                {% endif %}
+                {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('animals', page=p, search=search, category=category_id, breed=breed, gender=gender, vaccinated=vaccinated, sort=sort) }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+                {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('animals', page=page+1, search=search, category=category_id, breed=breed, gender=gender, vaccinated=vaccinated, sort=sort) }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

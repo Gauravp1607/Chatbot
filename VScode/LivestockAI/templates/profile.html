@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Profile{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/support-pages.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="profile-layout">
+            <aside class="profile-sidebar reveal">
+                <div class="profile-card text-center">
+                    <img class="profile-avatar" src="{{ user.profile_image }}" alt="{{ user.full_name }}">
+                    <h3 class="mt-3">{{ user.full_name }}</h3>
+                    <div class="meta-text">Signed in as {{ user.role|default('user', true)|title }}</div>
+                    <div class="mt-3"><span class="eyebrow">Verified Account</span></div>
+                </div>
+            </aside>
+            <div class="profile-main">
+                <div class="metrics-grid mb-4">
+                    <div class="page-card metric-card reveal"><div class="metric-icon"><i class="fa-solid fa-cow"></i></div><strong>{{ animal_count }}</strong><div>Animals Viewed</div></div>
+                    <div class="page-card metric-card reveal"><div class="metric-icon"><i class="fa-solid fa-heart"></i></div><strong>{{ wishlist_count }}</strong><div>Wishlist Items</div></div>
+                    <div class="page-card metric-card reveal"><div class="metric-icon"><i class="fa-solid fa-bell"></i></div><strong>12</strong><div>Notifications</div></div>
+                    <div class="page-card metric-card reveal"><div class="metric-icon"><i class="fa-solid fa-shield-heart"></i></div><strong>100%</strong><div>Profile Complete</div></div>
+                </div>
+                <div class="page-card profile-card reveal">
+                    <h2 class="mb-4">Personal Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item"><span>Name</span><strong>{{ user.full_name }}</strong></div>
+                        <div class="info-item"><span>Email</span><strong>{{ user.email }}</strong></div>
+                        <div class="info-item"><span>Phone</span><strong>{{ user.phone }}</strong></div>
+                        <div class="info-item"><span>Location</span><strong>{{ user.location }}</strong></div>
+                        <div class="info-item"><span>Role</span><strong>{{ user.role|title }}</strong></div>
+                        <div class="info-item"><span>Member Since</span><strong>{{ user.created_at }}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

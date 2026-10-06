@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Goat illustration">
+  <rect width="900" height="700" rx="48" fill="#f6fff6"/>
+  <path d="M0 555 C180 500, 285 615, 445 560 C610 504, 710 601, 900 540 L900 700 L0 700 Z" fill="#a7ef9e"/>
+  <g transform="translate(170 230)">
+    <ellipse cx="240" cy="172" rx="176" ry="118" fill="#f0e0c8"/>
+    <circle cx="402" cy="150" r="86" fill="#f0e0c8"/>
+    <path d="M392 90 C372 54, 338 48, 322 88" stroke="#9b7a54" stroke-width="15" fill="none" stroke-linecap="round"/>
+    <path d="M412 90 C438 54, 472 48, 488 88" stroke="#9b7a54" stroke-width="15" fill="none" stroke-linecap="round"/>
+    <ellipse cx="388" cy="145" rx="16" ry="12" fill="#3c3028"/>
+    <ellipse cx="430" cy="145" rx="16" ry="12" fill="#3c3028"/>
+    <rect x="166" y="260" width="26" height="120" rx="12" fill="#8b6a46"/>
+    <rect x="272" y="260" width="26" height="120" rx="12" fill="#8b6a46"/>
+    <rect x="380" y="260" width="26" height="120" rx="12" fill="#8b6a46"/>
+    <rect x="486" y="260" width="26" height="120" rx="12" fill="#8b6a46"/>
+  </g>
+</svg>

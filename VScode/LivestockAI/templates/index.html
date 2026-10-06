@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Home{% endblock %}
+
+{% block content %}
+<section class="hero-section reference-hero">
+    <div class="hero-reference-image" role="img" aria-label="LivestockAI marketplace with farm animals"></div>
+    <div class="container site-container hero-grid">
+        <div class="hero-copy reveal">
+            <span class="eyebrow">AI Powered Animal Marketplace</span>
+            <h1>Find Your Perfect Animal with AI</h1>
+            <p>Premium marketplace for healthy, verified livestock with fast search, smart discovery, and trusted sellers.</p>
+            <form class="hero-search" action="{{ url_for('animals') }}" method="get">
+                <select name="category" class="form-control hero-input">
+                    <option value="">All Animals</option>
+                    {% for category in categories %}
+                    <option value="{{ category.category_id }}">{{ category.category_name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="breed" class="form-control hero-input" placeholder="Breed">
+                <input type="text" name="search" class="form-control hero-input" placeholder="Location or keyword">
+                <button class="btn btn-hero" type="submit">Search</button>
+            </form>
+            <div class="hero-pills">
+                <span><i class="fa-solid fa-shield-heart"></i> Verified Sellers</span>
+                <span><i class="fa-solid fa-badge-check"></i> Healthy Animals</span>
+                <span><i class="fa-solid fa-brain"></i> AI Insights</span>
+            </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true"></div>
+    </div>
+    <div class="container site-container reference-stats">
+        {% for stat in statistics %}
+        <div class="reference-stat">
+            <span class="reference-stat-icon"><i class="fa-solid {{ stat.icon }}"></i></span>
+            <span><strong>{{ stat.stat_value }}{{ stat.stat_suffix }}</strong><small>{{ stat.stat_label }}</small></span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-block" id="categories">
+    <div class="container site-container">
+        <div class="section-head reveal">
+            <div>
+                <span class="eyebrow">Browse by Category</span>
+                <h2>Explore trusted animal categories</h2>
+            </div>
+            <a class="section-link" href="{{ url_for('animals') }}">View all animals</a>
+        </div>
+        <div class="category-grid">
+            {% for category in categories %}
+            <a class="category-card reveal" href="{{ url_for('animals', category=category.category_id) }}">
+                <i class="fa-solid {{ category.icon }}"></i>
+                <span>{{ category.category_name }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container site-container">
+        <div class="section-head reveal">
+            <div>
+                <span class="eyebrow">Popular Breeds</span>
+                <h2>Jump straight to your preferred breed</h2>
+            </div>
+        </div>
+        <div class="category-grid">
+            {% for breed in breed_options %}
+            <a class="category-card reveal" href="{{ url_for('animals', category=breed.category_id, breed=breed.breed) }}">
+                <i class="fa-solid fa-paw"></i>
+                <span>{{ breed.animal_type }} • {{ breed.breed }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container site-container">
+        <div class="section-head reveal">
+            <div>
+                <span class="eyebrow">Featured Animals</span>
+                <h2>Premium listings from verified sellers</h2>
+            </div>
+        </div>
+        <div class="animal-grid animal-grid-home">
+            {% for animal in featured_animals %}
+            <article class="animal-card reveal">
+                <div class="animal-image-wrap">
+                    <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}">
+                    <span class="verified-chip"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                </div>
+                <div class="animal-card-body">
+                    <div class="d-flex justify-content-between align-items-start gap-3">
+                        <div>
+                            <h3>{{ animal.animal_name }}</h3>
+                            <p>{{ animal.breed }} • {{ animal.location }}</p>
+                        </div>
+                        <span class="price-tag">₹{{ '{:,.0f}'.format(animal.price) }}</span>
+                    </div>
+                    <div class="animal-meta">
+                        <span>{{ animal.age }}</span>
+                        <span>{{ animal.weight }}</span>
+                        <span>{{ animal.gender }}</span>
+                    </div>
+                    <a href="{{ url_for('animal_detail', animal_id=animal.animal_id) }}" class="btn btn-view">View Details</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block stats-band">
+    <div class="container site-container">
+        <div class="stats-grid">
+            {% for stat in statistics %}
+            <div class="stat-card reveal">
+                <i class="fa-solid {{ stat.icon }}"></i>
+                <div>
+                    <strong>{{ stat.stat_value }}{{ stat.stat_suffix }}</strong>
+                    <span>{{ stat.stat_label }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block" id="testimonials">
+    <div class="container site-container">
+        <div class="section-head reveal">
+            <div>
+                <span class="eyebrow">Testimonials</span>
+                <h2>Trusted by buyers and sellers</h2>
+            </div>
+        </div>
+        <div class="testimonial-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card reveal">
+                <div class="testimonial-top">
+                    <img src="{{ testimonial.avatar }}" alt="{{ testimonial.full_name }}">
+                    <div>
+                        <h3>{{ testimonial.full_name }}</h3>
+                        <p>{{ testimonial.role_name }}</p>
+                    </div>
+                </div>
+                <div class="star-row">
+                    {% for _ in range(testimonial.rating) %}<i class="fa-solid fa-star"></i>{% endfor %}
+                </div>
+                <p>{{ testimonial.quote }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

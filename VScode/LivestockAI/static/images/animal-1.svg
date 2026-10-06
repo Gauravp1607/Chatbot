@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Cow illustration">
+  <rect width="900" height="700" rx="48" fill="#f4fbf6"/>
+  <circle cx="690" cy="130" r="66" fill="#ffe58a"/>
+  <path d="M0 520 C160 450, 260 565, 420 515 C570 470, 650 575, 900 500 L900 700 L0 700 Z" fill="#9ae67d"/>
+  <g transform="translate(210 260)">
+    <ellipse cx="220" cy="170" rx="170" ry="120" fill="#ffffff"/>
+    <ellipse cx="390" cy="150" rx="110" ry="84" fill="#ffffff"/>
+    <ellipse cx="400" cy="140" rx="32" ry="28" fill="#3b2f2a"/>
+    <ellipse cx="220" cy="150" rx="36" ry="30" fill="#2e241e"/>
+    <ellipse cx="300" cy="120" rx="28" ry="22" fill="#d8d8d8"/>
+    <ellipse cx="150" cy="160" rx="30" ry="24" fill="#2e241e"/>
+    <rect x="165" y="255" width="26" height="120" rx="12" fill="#6b4b3e"/>
+    <rect x="265" y="255" width="26" height="120" rx="12" fill="#6b4b3e"/>
+    <rect x="365" y="255" width="26" height="120" rx="12" fill="#6b4b3e"/>
+    <rect x="465" y="255" width="26" height="120" rx="12" fill="#6b4b3e"/>
+    <path d="M455 112 C505 70, 535 70, 560 110" stroke="#6b4b3e" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M388 104 C372 58, 340 56, 324 100" stroke="#6b4b3e" stroke-width="14" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

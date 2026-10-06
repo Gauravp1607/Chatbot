@@ -1,0 +1,360 @@
+/* Final shared UI layer: loaded after every page stylesheet for a consistent product experience. */
+:root {
+    --bg: #f6f8f7;
+    --surface: #ffffff;
+    --surface-subtle: #f8faf9;
+    --text: #14231b;
+    --muted: #65736b;
+    --primary: #147a45;
+    --primary-dark: #0d5b32;
+    --primary-2: #2caa65;
+    --primary-soft: #eaf7ef;
+    --primary-light: #eaf7ef;
+    --text-dark: #14231b;
+    --text-muted: #65736b;
+    --border: #dfe8e2;
+    --white: #ffffff;
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.1);
+    --shadow: 0 10px 28px rgba(20, 35, 27, 0.08);
+    --shadow-hover: 0 18px 38px rgba(20, 35, 27, 0.13);
+    --radius: 16px;
+}
+
+html { font-size: 16px; }
+
+body {
+    min-width: 0;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    background: linear-gradient(180deg, #fafcfb 0, var(--bg) 520px);
+    color: var(--text);
+}
+
+main { min-height: calc(100vh - 220px); }
+h1, h2, h3, h4, h5, h6 { color: var(--text); letter-spacing: -0.018em; }
+h1 { font-size: clamp(2rem, 4vw, 3.75rem) !important; line-height: 1.08 !important; }
+h2 { font-size: clamp(1.5rem, 2.4vw, 2.2rem); line-height: 1.2; }
+h3 { font-size: 1.125rem; line-height: 1.35; }
+p { line-height: 1.65; }
+
+.site-container { width: min(100% - 2rem, 1280px); padding-left: 0; padding-right: 0; }
+.section-block { padding: 3.75rem 0; }
+.page-hero, .dashboard-hero, .sell-hero, .disease-hero, .nearby-hero, .animals-hero, .detail-hero { padding: 3.5rem 0 1.5rem; }
+
+.site-navbar { background: rgba(255, 255, 255, 0.94); border-bottom-color: var(--border); }
+.brand-mark { font-size: 1.15rem; letter-spacing: -0.02em; }
+.brand-badge { width: 38px; height: 38px; border-radius: 12px; box-shadow: 0 8px 18px rgba(20, 122, 69, 0.22); }
+.nav-links .nav-link { font-size: 0.875rem; font-weight: 600; padding: 0.8rem 0.52rem; }
+.nav-actions { gap: 0.5rem; }
+.nav-actions .btn { font-size: 0.875rem; }
+
+.btn, .site-btn, .btn-hero, .btn-view, .btn-primary, .btn-secondary, .btn-soft {
+    min-height: 42px;
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    box-shadow: none;
+}
+.btn-primary, .site-btn, .btn-hero, .btn-view {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 7px 16px rgba(20, 122, 69, 0.18);
+}
+.btn-primary:hover, .site-btn:hover, .btn-hero:hover, .btn-view:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(20, 122, 69, 0.24);
+}
+.btn-secondary, .btn-soft, .btn-outline-secondary {
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+.btn-secondary:hover, .btn-soft:hover, .btn-outline-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #badbc6;
+    color: var(--primary-dark);
+}
+.btn:focus-visible, .form-control:focus, .form-select:focus { box-shadow: 0 0 0 0.22rem rgba(20, 122, 69, 0.16) !important; border-color: #63ad82 !important; }
+
+.form-label, .filter-group label { color: #293930; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.45rem; }
+.form-control, .form-select, .hero-input {
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: #fff;
+    color: var(--text);
+    font-size: 0.9rem;
+    padding: 0.65rem 0.8rem;
+}
+textarea.form-control, textarea.hero-input { min-height: 120px; }
+.form-control::placeholder { color: #93a198; opacity: 1; }
+.form-text, .auth-footer, .counter-row { font-size: 0.8125rem; }
+
+.page-card, .profile-card, .timeline-card, .team-card, .chat-shell, .contact-card, .wishlist-card, .auth-card,
+.sell-form, .sell-sidebar, .disease-upload-card, .disease-result-card, .history-card, .nearby-sidebar,
+.nearby-map-panel, .nearby-card, .mini-card, .dashboard-banner, .dashboard-card, .stat-card, .list-card,
+.chart-card, .sidebar-card, .filter-panel, .animal-card, .category-card, .testimonial-card, .detail-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.page-card, .profile-card, .timeline-card, .team-card, .chat-shell, .contact-card, .wishlist-card, .auth-card,
+.sell-form, .sell-sidebar, .disease-upload-card, .disease-result-card, .history-card, .nearby-sidebar,
+.nearby-map-panel, .nearby-card, .mini-card, .dashboard-banner, .dashboard-card, .stat-card, .list-card,
+.chart-card, .sidebar-card, .filter-panel, .animal-card, .category-card, .testimonial-card, .detail-card { background: var(--surface); }
+.category-card:hover, .animal-card:hover, .stat-card:hover, .testimonial-card:hover, .filter-panel:hover, .detail-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+
+.page-hero-card, .sell-hero-card, .disease-banner, .animals-hero-inner { border: 1px solid #d8e9de; border-radius: 20px; background: linear-gradient(135deg, #eff9f2, #fff 65%); box-shadow: var(--shadow); }
+.filter-panel, .nearby-sidebar, .dashboard-sidebar, .profile-sidebar, .contact-sidebar, .assistant-sidebar { top: 92px; }
+.eyebrow, .status-badge { font-size: 0.75rem; letter-spacing: 0.01em; background: var(--primary-soft); color: var(--primary-dark); }
+.animal-card-body, .history-body { padding: 1.15rem; }
+.animal-image-wrap { height: 220px; }
+.price-tag, .detail-price { color: var(--primary-dark); }
+.animal-meta span, .detail-meta-grid div, .info-item { background: var(--surface-subtle); border: 1px solid #e9efeb; }
+.detail-image { min-height: 480px; }
+.detail-body { padding: clamp(1.25rem, 3vw, 2rem); }
+
+.upload-zone, .drop-zone { border-radius: 14px; border-color: #b9dbc5; background: #f8fcf9; }
+.chat-history, .result-placeholder { background: var(--surface-subtle); }
+.chat-bubble { box-shadow: 0 4px 12px rgba(20, 35, 27, 0.07); }
+.site-footer { margin-top: 2rem; padding: 3.5rem 0 1.75rem; }
+
+@media (max-width: 1399px) {
+    .site-navbar .navbar-collapse { padding: 0.5rem 0 0.75rem; }
+    .site-navbar .nav-links { padding: 0.25rem 0; }
+    .site-navbar .nav-link { text-align: left; padding: 0.55rem 0; }
+}
+
+@media (max-width: 991.98px) {
+    .reference-hero .hero-grid { min-height: 0 !important; }
+
+    .reference-hero .hero-copy {
+        position: relative;
+        inset: auto;
+        padding: 2rem 0 1.25rem;
+    }
+
+    .reference-hero .reference-stats {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        width: min(100% - 1.5rem, 1280px);
+        margin: 0 auto;
+        transform: none;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 14px 16px;
+    }
+
+    .reference-stat { min-width: 0; }
+    .reference-stat:nth-child(2) { border-right: 0; }
+}
+
+@media (max-width: 767px) {
+    html { font-size: 15px; }
+    .site-container { width: min(100% - 1.5rem, 1280px); }
+    .section-block { padding: 2.75rem 0; }
+    .page-hero, .dashboard-hero, .sell-hero, .disease-hero, .nearby-hero, .animals-hero, .detail-hero { padding-top: 2.25rem; }
+    .page-hero-card, .sell-hero-card, .disease-banner, .animals-hero-inner, .auth-card, .sell-form, .disease-upload-card, .disease-result-card { padding: 1.25rem; }
+    .btn, .site-btn, .btn-hero, .btn-view, .btn-primary, .btn-secondary, .btn-soft { min-height: 44px; }
+    .animal-image-wrap { height: 210px; }
+    .detail-image { min-height: 280px; }
+}
+
+/* Shared button and navigation controls */
+.btn,
+button {
+    min-height: 44px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+button i,
+button svg,
+.btn i,
+.btn svg { flex-shrink: 0; }
+
+.btn-primary,
+.site-btn,
+.btn-hero,
+.btn-view {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+    box-shadow: 0 3px 8px rgba(20, 122, 69, 0.18);
+}
+
+.btn-primary:hover,
+.site-btn:hover,
+.btn-hero:hover,
+.btn-view:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: var(--white);
+    box-shadow: 0 5px 14px rgba(20, 122, 69, 0.22);
+}
+
+.btn-secondary,
+.btn-soft,
+.btn-outline-secondary {
+    background: var(--white);
+    border-color: var(--border);
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover,
+.btn-soft:hover,
+.btn-outline-secondary:hover {
+    background: #f5faf7;
+    border-color: var(--primary);
+    color: var(--primary-dark);
+}
+
+.btn:hover,
+button:hover { transform: translateY(-1px); }
+.btn:active,
+button:active { transform: translateY(0); }
+
+.btn:focus-visible,
+button:focus-visible {
+    outline: 3px solid rgba(20, 122, 69, 0.22);
+    outline-offset: 2px;
+}
+
+.btn:disabled,
+button:disabled {
+    opacity: 0.58;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.site-navbar .nav-links .nav-link {
+    min-height: 44px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-weight: 600;
+    line-height: 1.2;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.site-navbar .nav-links .nav-link i {
+    margin: 0 !important;
+    color: currentColor !important;
+    font-size: 16px;
+}
+
+.site-navbar .nav-links .nav-link:hover,
+.site-navbar .nav-links .nav-link.active {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.nav-actions > .btn,
+.nav-actions .dropdown > .btn {
+    min-width: 132px;
+    min-height: 44px;
+}
+
+.reference-hero .hero-search {
+    width: min(760px, 100%);
+    display: grid;
+    grid-template-columns: minmax(112px, 1fr) minmax(100px, 1fr) minmax(170px, 1.4fr) auto;
+    align-items: center;
+}
+
+.reference-hero .hero-search .hero-input,
+.reference-hero .hero-search .btn-hero {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+}
+
+.reference-hero .hero-search .btn-hero { padding: 0 18px; }
+
+@media (max-width: 1839.98px) {
+    .site-navbar .navbar-toggler { display: inline-flex !important; }
+
+    .site-navbar .navbar-collapse {
+        display: none !important;
+        flex-basis: 100%;
+        width: 100%;
+        max-height: min(72vh, 680px);
+        margin-top: 0.75rem;
+        padding: 1rem;
+        overflow-y: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: var(--white);
+        box-shadow: var(--shadow-md);
+    }
+
+    .site-navbar .navbar-collapse.show { display: block !important; }
+
+    .site-navbar .nav-links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .site-navbar .nav-links .nav-link { justify-content: flex-start; text-align: left; }
+
+    .site-navbar .nav-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 767px) {
+    .site-navbar .nav-links { grid-template-columns: 1fr; }
+    .site-navbar .nav-actions { align-items: stretch; }
+    .site-navbar .nav-actions > .btn,
+    .site-navbar .nav-actions .dropdown,
+    .site-navbar .nav-actions .dropdown > .btn { width: 100%; }
+
+    .reference-hero .hero-search {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .reference-hero .hero-search .btn-hero { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .site-container { width: min(100% - 1.25rem, 1280px); }
+    .site-navbar .navbar-collapse { padding: 0.75rem; }
+    .nav-actions > .btn,
+    .nav-actions .dropdown > .btn { min-width: 0; }
+}

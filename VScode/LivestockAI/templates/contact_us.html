@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Contact Us{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/support-pages.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="contact-layout">
+            <form class="contact-card reveal" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div class="form-grid">
+                    <div class="filter-group full-span">
+                        <label>Name *</label>
+                        <input type="text" class="form-control hero-input" name="name" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Email *</label>
+                        <input type="email" class="form-control hero-input" name="email" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control hero-input" name="phone">
+                    </div>
+                    <div class="filter-group full-span">
+                        <label>Subject *</label>
+                        <input type="text" class="form-control hero-input" name="subject" required>
+                    </div>
+                    <div class="filter-group full-span">
+                        <label>Message *</label>
+                        <textarea class="form-control hero-input textarea-input" name="message" rows="7" required></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-hero mt-3" type="submit">Send Message</button>
+            </form>
+
+            <aside class="contact-sidebar reveal">
+                <div class="page-card contact-card mb-3">
+                    <div class="contact-icon mb-3"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3>Address</h3>
+                    <p class="meta-text">Ahmedabad, Gujarat, India</p>
+                </div>
+                <div class="page-card contact-card mb-3">
+                    <div class="contact-icon mb-3"><i class="fa-solid fa-phone"></i></div>
+                    <h3>Phone</h3>
+                    <p class="meta-text">+91 99988 87766</p>
+                </div>
+                <div class="page-card contact-card">
+                    <div class="contact-icon mb-3"><i class="fa-solid fa-envelope"></i></div>
+                    <h3>Email</h3>
+                    <p class="meta-text">support@livestockai.com</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

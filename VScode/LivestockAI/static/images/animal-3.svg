@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Horse illustration">
+  <rect width="900" height="700" rx="48" fill="#fff9f0"/>
+  <path d="M0 530 C180 450, 280 600, 450 540 C630 480, 700 585, 900 520 L900 700 L0 700 Z" fill="#f3bb69"/>
+  <g transform="translate(170 210)">
+    <path d="M175 160 C210 78, 324 54, 402 98 C466 134, 508 208, 484 272 C459 339, 382 370, 302 356 C214 340, 152 258, 175 160 Z" fill="#8b5a2b"/>
+    <circle cx="420" cy="164" r="78" fill="#8b5a2b"/>
+    <path d="M414 96 C440 54, 480 56, 498 92" stroke="#8b5a2b" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <path d="M391 86 C352 48, 318 60, 304 96" stroke="#8b5a2b" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <rect x="196" y="315" width="28" height="150" rx="12" fill="#5f3c1e"/>
+    <rect x="286" y="325" width="28" height="150" rx="12" fill="#5f3c1e"/>
+    <rect x="392" y="320" width="28" height="150" rx="12" fill="#5f3c1e"/>
+    <rect x="480" y="304" width="28" height="150" rx="12" fill="#5f3c1e"/>
+  </g>
+</svg>

@@ -1,0 +1,252 @@
+.page-hero {
+    padding: 54px 0 24px;
+}
+
+.page-card,
+.profile-card,
+.timeline-card,
+.team-card,
+.chat-shell,
+.contact-card,
+.wishlist-card,
+.auth-card {
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 26px;
+    box-shadow: var(--shadow);
+}
+
+.auth-card {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.auth-card h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.auth-card .form-label {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.auth-footer {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.auth-footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+@media (max-width: 767px) {
+    .auth-card {
+        padding: 1.6rem;
+        margin: 0 1rem;
+    }
+}
+
+.page-hero-card {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.page-hero-card img {
+    width: 100%;
+    border-radius: 22px;
+    object-fit: cover;
+}
+
+.metrics-grid,
+.team-grid,
+.features-grid,
+.wishlist-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.metric-card,
+.feature-card,
+.team-card,
+.wishlist-card,
+.profile-card,
+.contact-card,
+.timeline-card {
+    padding: 1.25rem;
+}
+
+.metric-card strong {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.profile-layout,
+.contact-layout,
+.assistant-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+}
+
+.profile-sidebar,
+.contact-sidebar,
+.assistant-sidebar {
+    position: sticky;
+    top: 110px;
+    height: fit-content;
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 28px;
+    object-fit: cover;
+    box-shadow: var(--shadow);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.info-item {
+    padding: 1rem;
+    border-radius: 18px;
+    background: #f8fafc;
+}
+
+.info-item span,
+.stat-line,
+.meta-text {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.chat-shell {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    min-height: 720px;
+    overflow: hidden;
+}
+
+.chat-history {
+    background: #f8fafc;
+    padding: 1.2rem;
+}
+
+.chat-thread {
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+    max-height: 720px;
+    overflow-y: auto;
+}
+
+.chat-bubble {
+    max-width: 82%;
+    padding: 1rem 1.1rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.chat-bubble.user {
+    margin-left: auto;
+    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    color: #fff;
+}
+
+.chat-bubble.ai {
+    background: #fff;
+}
+
+.chat-input-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.feature-card i,
+.contact-icon,
+.team-avatar,
+.metric-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+    .auth-card {
+        margin: 0 auto;
+        max-width: 520px;
+        padding: 2rem 1.5rem;
+    }
+
+    .auth-card .form-control {
+        border-radius: 16px;
+    }
+
+    .auth-card button {
+        width: 100%;
+    }
+
+    .auth-helper-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        font-size: 0.95rem;
+        color: var(--muted);
+    }
+
+    .auth-helper-row .text-small {
+        margin: 0;
+    }
+
+    .auth-helper-row a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    @media (max-width: 1199px) {
+        .page-hero-card,
+        .profile-layout,
+        .contact-layout,
+        .assistant-layout,
+        .chat-shell,
+        .metrics-grid,
+        .team-grid,
+        .features-grid,
+        .wishlist-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .page-hero-card,
+        .auth-card {
+            grid-template-columns: 1fr;
+        }
+    }

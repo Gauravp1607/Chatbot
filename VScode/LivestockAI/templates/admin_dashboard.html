@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Admin Dashboard{% endblock %}
+
+{% block styles %}
+<link href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/admin-dashboard.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="admin-layout">
+            <aside class="dashboard-sidebar reveal">
+                <div class="admin-sidebar-card sidebar-card">
+                    <h3>Admin Menu</h3>
+                    <div class="sidebar-menu admin-menu">
+                        <a class="active" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+                        <a href="#users">User Management</a>
+                        <a href="#sellers">Seller Management</a>
+                        <a href="#animals">Animal Listings</a>
+                        <a href="#reports">Reports & Complaints</a>
+                        <a href="#maps">Maps & Locations</a>
+                    </div>
+                </div>
+            </aside>
+
+            <div>
+                <div class="dashboard-grid mb-4 admin-stat-grid">
+                    <div class="stat-card reveal"><span class="eyebrow">Total Users</span><span class="value">{{ total_users }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Active Sellers</span><span class="value">{{ active_sellers }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Animal Listings</span><span class="value">{{ animal_listings }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Reports</span><span class="value">{{ reports }}</span></div>
+                </div>
+                <div class="dashboard-grid mb-4 admin-stat-grid admin-financial-grid">
+                    <div class="stat-card reveal"><span class="eyebrow">GMV</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.total_gmv or 0) }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Buyer Commissions</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.buyer_commissions or 0) }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Seller Commissions</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.seller_commissions or 0) }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Platform Gross Commission</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.gross_commission or 0) }}</span></div>
+                </div>
+                <div class="dashboard-grid mb-4 admin-stat-grid admin-financial-grid">
+                    <div class="stat-card reveal"><span class="eyebrow">Seller Payouts</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.seller_payouts or 0) }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Total Buyer Payments</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.buyer_payments or 0) }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Payments</span><span class="value">{{ financial_metrics.successful_payments or 0 }} successful</span><span class="meta-text">{{ financial_metrics.pending_payments or 0 }} pending | {{ financial_metrics.failed_payments or 0 }} failed</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Transfers</span><span class="value">{{ financial_metrics.successful_transfers or 0 }} successful</span><span class="meta-text">{{ financial_metrics.pending_transfers or 0 }} pending | {{ financial_metrics.failed_transfers or 0 }} failed</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Refunds</span><span class="value">₹{{ '{:,.2f}'.format(financial_metrics.refunds or 0) }}</span></div>
+                </div>
+
+                <div class="dashboard-two-col mb-4" id="users">
+                    <div class="list-card reveal">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap"><h3>User Management</h3><button class="btn btn-view admin-refresh" data-resource="users">Refresh</button></div>
+                        <div class="table-responsive mt-3"><table class="table admin-data-table"><thead><tr><th>User</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="admin-users-body"></tbody></table></div>
+                    </div>
+                    <div class="list-card reveal" id="sellers">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap"><h3>Seller Management</h3><button class="btn btn-view admin-refresh" data-resource="sellers">Refresh</button></div>
+                        <div class="table-responsive mt-3"><table class="table admin-data-table"><thead><tr><th>Seller</th><th>Rating</th><th>Verified</th><th>Action</th></tr></thead><tbody id="admin-sellers-body"></tbody></table></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-two-col mb-4">
+                    <div class="list-card reveal" id="animals">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap"><h3>Animal Listings</h3><button class="btn btn-view admin-refresh" data-resource="animals">Refresh</button></div>
+                        <div class="table-responsive mt-3"><table class="table admin-data-table"><thead><tr><th>Animal</th><th>Price</th><th>Availability</th><th>Action</th></tr></thead><tbody id="admin-animals-body"></tbody></table></div>
+                    </div>
+                    <div class="list-card reveal" id="reports">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap"><h3>Reports & Complaints</h3><button class="btn btn-view admin-refresh" data-resource="reports">Refresh</button></div>
+                        <div class="table-responsive mt-3"><table class="table admin-data-table"><thead><tr><th>Reason</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody id="admin-reports-body"></tbody></table></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-two-col mb-4">
+                    <div class="chart-card reveal">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                            <h3>User Growth</h3>
+                            <span class="status-badge">Live Data</span>
+                        </div>
+                        <div class="chart-wrap mt-3">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card reveal">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                            <h3>Animal Categories</h3>
+                            <span class="status-badge">MySQL</span>
+                        </div>
+                        <div class="chart-wrap mt-3">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-two-col mb-4">
+                    <div class="list-card reveal" id="recent-animals">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                            <h3>Recent Animal Listings</h3>
+                            <span class="status-badge">{{ animal_listings }} total</span>
+                        </div>
+                        {% for animal in recent_listings %}
+                        <div class="order-item">
+                            <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}">
+                            <div>
+                                <strong>{{ animal.animal_name }}</strong>
+                                <div class="meta-text">{{ animal.category_name }} • {{ animal.created_at }}</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="price-tag">₹{{ '{:,.0f}'.format(animal.price) }}</div>
+                                <span class="status-badge">Live</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="list-card reveal" id="recent-messages">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                            <h3>Recent Messages</h3>
+                            <span class="status-badge">Support</span>
+                        </div>
+                        {% for message in recent_messages %}
+                        <div class="inquiry-item">
+                            <div class="metric-icon"><i class="fa-solid fa-message"></i></div>
+                            <div>
+                                <strong>{{ message.name }}</strong>
+                                <div class="meta-text">{{ message.subject }}</div>
+                            </div>
+                            <span class="status-badge">{{ message.created_at }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="admin-map-grid mb-4" id="maps">
+                    <div class="chart-card reveal">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                            <h3>Seller Locations</h3>
+                            <span class="status-badge">OpenStreetMap</span>
+                        </div>
+                        <div id="adminMap" class="admin-map mt-3"></div>
+                    </div>
+                    <div class="chart-card reveal" id="top-sellers">
+                        <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                            <h3>Top Sellers</h3>
+                            <span class="status-badge">Verified</span>
+                        </div>
+                        <div class="list-card mt-3 p-0 shadow-none">
+                            {% for seller in top_sellers %}
+                            <div class="inquiry-item">
+                                <div class="metric-icon"><i class="fa-solid fa-store"></i></div>
+                                <div>
+                                    <strong>{{ seller.seller_name }}</strong>
+                                    <div class="meta-text">Rating {{ seller.rating }}</div>
+                                </div>
+                                <span class="status-badge">{% if seller.verified %}Verified{% else %}Pending{% endif %}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card reveal">
+                    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                        <h3>Marketplace Health</h3>
+                        <span class="status-badge">Overview</span>
+                    </div>
+                    <div class="dashboard-grid mt-3 admin-mini-grid">
+                        <div class="page-card metric-card"><span class="eyebrow">AI Usage</span><strong>{{ ai_usage }}</strong></div>
+                        <div class="page-card metric-card"><span class="eyebrow">Wishlist Records</span><strong>{{ wishlist_total }}</strong></div>
+                        <div class="page-card metric-card"><span class="eyebrow">Messages</span><strong>{{ reports }}</strong></div>
+                        <div class="page-card metric-card"><span class="eyebrow">Seller Pins</span><strong>{{ seller_locations|length }}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    window.ADMIN_CATEGORY_CHART = {{ category_chart | tojson }};
+    window.ADMIN_STATUS_CHART = {{ status_data | tojson }};
+    window.ADMIN_USER_GROWTH = {{ user_growth_data | tojson }};
+    window.ADMIN_SELLERS = {{ seller_locations | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/admin-dashboard.js') }}?v=2"></script>
+<script src="{{ url_for('static', filename='js/admin-crud.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Farm landscape">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dff6ff"/>
+      <stop offset="100%" stop-color="#f8fff6"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7ddc6b"/>
+      <stop offset="100%" stop-color="#2f8f3e"/>
+    </linearGradient>
+    <linearGradient id="barn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ea5f3b"/>
+      <stop offset="100%" stop-color="#c63d22"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="940" cy="120" r="54" fill="#ffd86b"/>
+  <path d="M0 570 C130 520, 220 620, 350 580 C490 530, 600 640, 760 580 C910 525, 1030 610, 1200 560 L1200 900 L0 900 Z" fill="url(#field)"/>
+  <path d="M0 640 C170 600, 270 690, 420 652 C555 618, 685 715, 842 664 C985 616, 1080 682, 1200 650 L1200 900 L0 900 Z" fill="#2b7f38" opacity="0.85"/>
+  <g transform="translate(120 300)">
+    <rect x="0" y="110" width="220" height="170" rx="22" fill="url(#barn)"/>
+    <path d="M-20 120 L110 20 L240 120 Z" fill="#b8381f"/>
+    <rect x="88" y="170" width="44" height="110" rx="10" fill="#8d2715"/>
+    <rect x="30" y="155" width="44" height="44" rx="10" fill="#fff" opacity="0.9"/>
+    <rect x="146" y="155" width="44" height="44" rx="10" fill="#fff" opacity="0.9"/>
+  </g>
+  <g fill="#ffffff" opacity="0.9">
+    <ellipse cx="500" cy="200" rx="70" ry="34"/>
+    <ellipse cx="550" cy="188" rx="56" ry="28"/>
+    <ellipse cx="610" cy="205" rx="78" ry="38"/>
+    <ellipse cx="680" cy="190" rx="60" ry="30"/>
+    <ellipse cx="760" cy="220" rx="84" ry="40"/>
+  </g>
+  <g transform="translate(540 450)">
+    <ellipse cx="0" cy="0" rx="80" ry="52" fill="#ffffff"/>
+    <circle cx="70" cy="-18" r="24" fill="#ffffff"/>
+    <circle cx="-14" cy="58" r="10" fill="#3f2d1f"/>
+    <circle cx="30" cy="58" r="10" fill="#3f2d1f"/>
+    <circle cx="86" cy="36" r="10" fill="#3f2d1f"/>
+    <circle cx="105" cy="36" r="10" fill="#3f2d1f"/>
+    <path d="M94 -36 C110 -70, 130 -70, 142 -34" stroke="#3f2d1f" stroke-width="10" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

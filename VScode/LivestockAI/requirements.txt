@@ -1,0 +1,14 @@
+Flask==3.0.3
+Flask-Cors
+PyJWT
+gunicorn==23.0.0
+PyMySQL==1.1.1
+python-dotenv==1.0.1
+itsdangerous==2.1.2
+razorpay==1.4.2
+mysql-connector-python==9.4.0
+google-genai>=1.0.0
+gTTS>=2.5.1
+tensorflow>=2.15.0
+faiss-cpu>=1.8.0
+sentence-transformers>=3.0.0

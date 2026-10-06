@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Disease Detection{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/disease.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="disease-layout">
+            <form class="disease-upload-card reveal" method="post" enctype="multipart/form-data" id="diseaseForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div class="section-head compact">
+                    <div>
+                        <span class="eyebrow">Upload Image</span>
+                        <h2>Scan for possible health issues</h2>
+                    </div>
+                </div>
+
+                <div class="drop-zone" id="diseaseDropZone">
+                    <input type="file" name="disease_image" id="diseaseImageInput" accept="image/*" hidden required>
+                    <i class="fa-solid fa-camera-retro fs-1 text-success mb-2"></i>
+                    <h3>Take or Upload Animal Photo</h3>
+                    <p class="small text-muted mb-2">Supports Cows, Dogs, Cats & Horses photos</p>
+                    <button type="button" class="btn btn-primary site-btn py-2 px-4 mt-1" id="chooseDiseaseImage"><i class="fa-solid fa-camera me-1"></i> Select Photo to Diagnose</button>
+                </div>
+
+                <div class="disease-input-grid mt-3">
+                    <div>
+                        <label class="form-label" for="animalType">Animal species</label>
+                        <select class="form-control hero-input" id="animalType" name="animal_type" required>
+                            <option value="">Select species</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Cow">Cow</option>
+                            <option value="Dog">Dog</option>
+                            <option value="Horse">Horse</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="symptoms">Clinical signs</label>
+                        <input class="form-control hero-input" id="symptoms" name="symptoms" placeholder="Fever, drooling, mouth ulcers" required>
+                    </div>
+                </div>
+
+                <div class="preview-box" id="diseasePreviewBox">
+                    <img src="" alt="Preview" id="diseasePreviewImage">
+                </div>
+
+                <button class="btn btn-hero submit-btn" type="submit">Run Detection</button>
+            </form>
+
+            <aside class="disease-result-card reveal">
+                <div class="section-head compact">
+                    <div>
+                        <span class="eyebrow">Latest Result</span>
+                        <h2>Prediction Summary</h2>
+                    </div>
+                </div>
+
+                {% if current_result %}
+                <div class="result-main">
+                    <img src="{{ current_result.image_path }}" alt="Analyzed image">
+                    <div class="result-meta">
+                        <h3>{{ current_result.predicted_disease }}</h3>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: {{ current_result.confidence }}%;"></div>
+                        </div>
+                        <p><strong>Confidence:</strong> {{ '%.2f'|format(current_result.confidence) }}%</p>
+                        <p><strong>Treatment:</strong> {{ current_result.recommendation }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="result-placeholder">
+                    <i class="fa-solid fa-microscope"></i>
+                    <p>No image analyzed in this session yet. Upload one to see results.</p>
+                </div>
+                {% endif %}
+
+                <a href="#history" class="btn btn-soft mt-3">View Detection History</a>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<section class="section-block" id="history">
+    <div class="container site-container">
+        <div class="section-head reveal">
+            <div>
+                <span class="eyebrow">Recent Predictions</span>
+                <h2>Disease Detection History</h2>
+            </div>
+        </div>
+
+        <div class="history-grid">
+            {% for item in prediction_history %}
+            <article class="history-card reveal">
+                <img src="{{ item.image_path }}" alt="Prediction image">
+                <div class="history-body">
+                    <h3>{{ item.predicted_disease }}</h3>
+                    <p class="meta-text">{{ item.created_at }}</p>
+                    <p><strong>Confidence:</strong> {{ '%.2f'|format(item.confidence) }}%</p>
+                    <p>{{ item.recommendation }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/disease.js') }}"></script>
+{% endblock %}

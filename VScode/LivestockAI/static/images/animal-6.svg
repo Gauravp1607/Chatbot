@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Dog illustration">
+  <rect width="900" height="700" rx="48" fill="#f8fafc"/>
+  <circle cx="690" cy="132" r="58" fill="#ffe18d"/>
+  <path d="M0 556 C175 490, 290 622, 448 570 C615 514, 700 606, 900 544 L900 700 L0 700 Z" fill="#b6e3ff"/>
+  <g transform="translate(180 240)">
+    <path d="M188 132 C230 76, 332 64, 394 108 C457 152, 488 230, 468 288 C442 360, 354 390, 274 372 C196 354, 145 255, 188 132 Z" fill="#f1c59c"/>
+    <circle cx="410" cy="152" r="78" fill="#f1c59c"/>
+    <ellipse cx="392" cy="146" rx="15" ry="12" fill="#402f24"/>
+    <ellipse cx="430" cy="146" rx="15" ry="12" fill="#402f24"/>
+    <path d="M388 180 C408 200, 430 200, 448 178" stroke="#402f24" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M414 88 C382 54, 344 58, 332 94" stroke="#8e6541" stroke-width="15" fill="none" stroke-linecap="round"/>
+    <path d="M440 90 C470 56, 512 56, 528 94" stroke="#8e6541" stroke-width="15" fill="none" stroke-linecap="round"/>
+    <rect x="174" y="275" width="28" height="120" rx="12" fill="#8e6541"/>
+    <rect x="276" y="285" width="28" height="120" rx="12" fill="#8e6541"/>
+    <rect x="378" y="278" width="28" height="120" rx="12" fill="#8e6541"/>
+    <rect x="480" y="270" width="28" height="120" rx="12" fill="#8e6541"/>
+  </g>
+</svg>

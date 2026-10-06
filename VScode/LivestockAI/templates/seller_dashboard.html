@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Seller Dashboard{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="dashboard-layout">
+            <aside class="dashboard-sidebar reveal">
+                <div class="sidebar-card">
+                    <h3>Seller Menu</h3>
+                    <div class="sidebar-menu">
+                        <a class="active" href="{{ url_for('seller_dashboard') }}">Dashboard</a>
+                        <a href="{{ url_for('sell_animal') }}">Add New Animal</a>
+                        <a href="{{ url_for('animals') }}">My Animals</a>
+                        <a href="{{ url_for('seller_dashboard') }}#orders">Orders</a>
+                        <a href="{{ url_for('seller_dashboard') }}#inquiries">Inquiries</a>
+                        <a href="{{ url_for('seller_dashboard') }}#analytics">Analytics</a>
+                    </div>
+                </div>
+            </aside>
+
+            <div>
+                <div class="dashboard-grid mb-4">
+                    <div class="stat-card reveal"><span class="eyebrow">Total Animals</span><span class="value">{{ total_animals }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Active Listings</span><span class="value">{{ active_listings }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Total Orders</span><span class="value">{{ total_orders }}</span></div>
+                    <div class="stat-card reveal"><span class="eyebrow">Net Earnings</span><span class="value">₹{{ '{:,.2f}'.format(seller_financials.net_earnings or 0) }}</span></div>
+                </div>
+
+                <div class="dashboard-two-col mb-4">
+                    <div class="chart-card reveal">
+                        <h3>Sales Overview</h3>
+                        <div class="chart-wrap mt-3">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card reveal">
+                        <h3>Animal Status</h3>
+                        <div class="chart-wrap mt-3">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-two-col mb-4">
+                    <div class="list-card reveal" id="orders">
+                        <h3>Recent Orders</h3>
+                        {% for order in recent_orders %}
+                        <div class="order-item">
+                            <img src="{{ animal_image_url(order) }}" alt="{{ order.animal_name }}">
+                            <div>
+                                <strong>{{ order.animal_name }}</strong>
+                                <div class="meta-text">{{ order.buyer_name or 'Buyer' }} • Order #{{ order.order_id }}</div>
+                            </div>
+                            <div class="text-end order-actions">
+                                <div class="meta-text">Gross sale: ₹{{ '{:,.2f}'.format(order.base_amount or order.price) }}</div>
+                                <div class="meta-text">Commission deducted: ₹{{ '{:,.2f}'.format(order.seller_commission_amount or 0) }}</div>
+                                <div class="price-tag">Net earning: ₹{{ '{:,.2f}'.format(order.seller_payout_amount or order.price) }}</div>
+                                <span class="status-badge">{{ order.order_status }}</span>
+                                <div class="meta-text">Payment: {{ order.payment_status }} | Transfer: {{ order.transfer_status }}</div>
+                                {% if order.razorpay_transfer_id %}<div class="meta-text">Transfer ID: {{ order.razorpay_transfer_id }}</div>{% endif %}
+                                {% if order.order_status in ['Pending', 'Confirmed'] %}
+                                <form method="post" action="{{ url_for('update_order_status', order_id=order.order_id) }}" class="mt-2">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                    <select name="order_status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                        <option value="">Update status</option>
+                                        {% if order.order_status == 'Pending' %}<option value="Confirmed">Confirm</option>{% endif %}
+                                        <option value="Cancelled">Cancel</option>
+                                    </select>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="list-card reveal" id="inquiries">
+                        <h3>Recent Inquiries</h3>
+                        {% for inquiry in recent_inquiries %}
+                        <div class="inquiry-item">
+                            <div class="metric-icon"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <strong>{{ inquiry.buyer_name or 'Buyer' }}</strong>
+                                <div class="meta-text">{{ inquiry.animal_name }} • {{ inquiry.status }}</div>
+                            </div>
+                            <span class="status-badge">{{ inquiry.status }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="chart-card reveal" id="analytics">
+                    <h3>Top Performing Animals</h3>
+                    <div class="animals-slider mt-3">
+                        {% for animal in top_animals %}
+                        <div class="page-card small-animal-card">
+                            <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}" style="width:100%;height:180px;object-fit:cover;">
+                            <div class="body">
+                                <h4 class="mt-2">{{ animal.animal_name }}</h4>
+                                <div class="meta-text">{{ animal.health_status }}</div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <strong class="price-tag">₹{{ '{:,.0f}'.format(animal.price) }}</strong>
+                                    <a href="{{ url_for('animal_detail', animal_id=animal.animal_id) }}" class="btn btn-view">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    window.SELLER_SALES_DATA = {{ seller_sales_data | tojson }};
+    window.SELLER_STATUS_DATA = {{ seller_status_data | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

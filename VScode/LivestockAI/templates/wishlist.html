@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Wishlist{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/support-pages.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        {% if wishlist_items %}
+        <div class="wishlist-grid">
+            {% for animal in wishlist_items %}
+            <article class="page-card wishlist-card reveal">
+                <div class="animal-image-wrap" style="height:220px;border-radius:18px;overflow:hidden;">
+                    <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}">
+                </div>
+                <div class="pt-3">
+                    <span class="eyebrow">{{ animal.category_name }}</span>
+                    <h3 class="mt-3">{{ animal.animal_name }}</h3>
+                    <div class="meta-text">{{ animal.breed }} • {{ animal.location }}</div>
+                    <div class="action-row mt-3">
+                        <strong class="price-tag">₹{{ '{:,.0f}'.format(animal.price) }}</strong>
+                        <a href="{{ url_for('animal_detail', animal_id=animal.animal_id) }}" class="btn btn-view">View Details</a>
+                        <form method="post" action="{{ url_for('remove_from_wishlist', animal_id=animal.animal_id) }}" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                            <button type="submit" class="btn btn-secondary">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="page-card p-5 text-center reveal">
+            <h2>Your wishlist is empty</h2>
+            <p class="meta-text">Save animals you like so you can compare them later.</p>
+            <a href="{{ url_for('animals') }}" class="btn btn-hero mt-3">Browse Animals</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

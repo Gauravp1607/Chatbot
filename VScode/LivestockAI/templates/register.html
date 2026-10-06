@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Register | LivestockAI{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/support-pages.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block">
+    <div class="container site-container">
+        <div class="page-card auth-card reveal">
+            <h2>Register</h2>
+            <form method="post" action="{{ url_for('register') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <input type="hidden" name="next" value="{{ next }}">
+                <div class="mb-3">
+                    <label class="form-label">Full name</label>
+                    <input type="text" class="form-control" name="full_name" placeholder="Your full name" autocomplete="name" minlength="2" maxlength="100" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Account type</label>
+                    <select name="role" id="roleSelect" class="form-select" required>
+                        <option value="buyer">Buyer</option>
+                        <option value="seller">Seller</option>
+                        <option value="user">User</option>
+                        <option value="admin" disabled>Admin (requires code)</option>
+                    </select>
+                    <div class="form-text">Choose the account type. Admin registrations require a secret code.</div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="hasAdminCodeChk">
+                    <label class="form-check-label" for="hasAdminCodeChk">I have an admin invite code</label>
+                </div>
+                <div class="mb-3" id="adminCodeRow" style="display:none;">
+                    <label class="form-label">Admin code</label>
+                    <input type="text" class="form-control" id="adminCodeInput" name="admin_code" placeholder="Enter admin code" autocomplete="off">
+                    <div class="form-text">Provide the admin invite code to enable Admin role selection.</div>
+                </div>
+
+                <script>
+                    (function(){
+                        const chk = document.getElementById('hasAdminCodeChk');
+                        const adminRow = document.getElementById('adminCodeRow');
+                        const adminCodeInput = document.getElementById('adminCodeInput');
+                        const roleSelect = document.getElementById('roleSelect');
+                        const adminOption = Array.from(roleSelect.options).find(o => o.value === 'admin');
+                        chk.addEventListener('change', function() {
+                            if (this.checked) {
+                                adminRow.style.display = '';
+                                adminCodeInput.required = true;
+                                if (adminOption) adminOption.disabled = false;
+                            } else {
+                                adminRow.style.display = 'none';
+                                adminCodeInput.required = false;
+                                if (adminOption) {
+                                    adminOption.disabled = true;
+                                    if (roleSelect.value === 'admin') roleSelect.value = 'buyer';
+                                }
+                            }
+                        });
+
+                        const password = document.getElementById('registerPassword');
+                        const confirmation = document.getElementById('confirmPassword');
+                        const validateConfirmation = () => {
+                            confirmation.setCustomValidity(password.value === confirmation.value ? '' : 'Passwords do not match.');
+                        };
+                        password.addEventListener('input', validateConfirmation);
+                        confirmation.addEventListener('input', validateConfirmation);
+                    })();
+                </script>
+                <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone number</label>
+                    <input type="tel" class="form-control" name="phone" placeholder="+91 98765 43210" autocomplete="tel" inputmode="tel" pattern="\+?[1-9][0-9 ]{7,24}" minlength="8" maxlength="25" title="Enter a phone number with country code and 8 to 15 digits." required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Create a password" autocomplete="new-password" minlength="8" maxlength="128" pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,128}" title="Use 8 to 128 characters, including at least one letter and one number." required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Confirm password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirm_password" placeholder="Confirm password" autocomplete="new-password" minlength="8" maxlength="128" required>
+                </div>
+                <button type="submit" class="btn btn-hero w-100">Create account</button>
+            </form>
+            <p class="mt-4 text-center">Already have an account? <a href="{{ url_for('login', next=next) }}">Sign in</a></p>
+            <p class="auth-footer text-center mt-3">Signing up gives you full access to LivestockAI marketplace features and personalized recommendations.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

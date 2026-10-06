@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Nearby Animals{% endblock %}
+
+{% block styles %}
+<link href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/nearby.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="nearby-hero" data-map-points='{{ map_points|tojson|forceescape }}' data-user-lat="{{ user_lat }}" data-user-lon="{{ user_lon }}" data-radius="{{ radius }}">
+    <div class="container site-container">
+        <div class="nearby-head reveal">
+            <div>
+                <span class="eyebrow">Nearby Animals</span>
+                <h1>Find animals near {{ current_location.city }}, {{ current_location.state }}</h1>
+                <p>Browse nearby listings with live distance ranking and interactive map support.</p>
+            </div>
+            <div class="nearby-searchbox">
+                <div class="location-pill"><i class="fa-solid fa-location-dot"></i> {{ current_location.city }}, {{ current_location.state }}</div>
+            </div>
+        </div>
+
+        <div class="nearby-layout">
+            <aside class="nearby-sidebar reveal">
+                <div class="filter-head">
+                    <h3>Filters</h3>
+                    <a href="{{ url_for('nearby_animals') }}">Reset</a>
+                </div>
+                <form id="nearby-filter-form" class="filter-form" method="get" action="{{ url_for('nearby_animals') }}">
+                    <div class="filter-group">
+                        <label>Radius</label>
+                        <select name="radius" class="form-control hero-input">
+                            <option value="5" {% if radius == 5 %}selected{% endif %}>5 km</option>
+                            <option value="10" {% if radius == 10 %}selected{% endif %}>10 km</option>
+                            <option value="25" {% if radius == 25 %}selected{% endif %}>25 km</option>
+                            <option value="50" {% if radius == 50 %}selected{% endif %}>50 km</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Animal Type</label>
+                        <select name="animal_type" class="form-control hero-input">
+                            <option value="">All Animals</option>
+                            <option value="Cow" {% if animal_type == 'Cow' %}selected{% endif %}>Cow</option>
+                            <option value="Dog" {% if animal_type == 'Dog' %}selected{% endif %}>Dog</option>
+                            <option value="Cat" {% if animal_type == 'Cat' %}selected{% endif %}>Cat</option>
+                            <option value="Horse" {% if animal_type == 'Horse' %}selected{% endif %}>Horse</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control hero-input">
+                            <option value="">All</option>
+                            <option value="Male" {% if gender == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if gender == 'Female' %}selected{% endif %}>Female</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Vaccinated</label>
+                        <select name="vaccinated" class="form-control hero-input">
+                            <option value="">All</option>
+                            <option value="Yes" {% if vaccinated == 'Yes' %}selected{% endif %}>Yes</option>
+                            <option value="No" {% if vaccinated == 'No' %}selected{% endif %}>No</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-hero w-100" type="submit">Apply Filters</button>
+                </form>
+
+                <div class="animal-list-mini">
+                    {% for animal in animals %}
+                    <article class="mini-card reveal" data-animal-index="{{ loop.index0 }}">
+                        <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}">
+                        <div>
+                            <h4>{{ animal.animal_name }}</h4>
+                            <p>{{ animal.location }}</p>
+                            <strong>{{ distance_label(animal.distance_km) }} away</strong>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </aside>
+
+            <section class="nearby-map-panel reveal">
+                <div id="nearbyMap" class="nearby-map"></div>
+            </section>
+        </div>
+
+        <div class="nearby-list-grid reveal">
+            {% for animal in animals %}
+            <article class="nearby-card">
+                <img src="{{ animal_image_url(animal) }}" alt="{{ animal.animal_name }}">
+                <div>
+                    <h3>{{ animal.animal_name }}</h3>
+                    <p>{{ animal.breed }} • {{ animal.location }}</p>
+                    <div class="nearby-meta">
+                        <span>{{ animal.age }}</span>
+                        <span>{{ animal.weight }}</span>
+                        <span>{{ distance_label(animal.distance_km) }}</span>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <nav class="pagination-wrap reveal" aria-label="Nearby animals pagination">
+            <ul class="pagination-list">
+                <li><a class="{% if page <= 1 %}disabled{% endif %}" href="{{ url_for('nearby_animals', page=page-1, radius=radius, animal_type=animal_type, gender=gender, vaccinated=vaccinated) }}">Previous</a></li>
+                {% for n in range(1, total_pages + 1) %}
+                <li><a class="{% if n == page %}active{% endif %}" href="{{ url_for('nearby_animals', page=n, radius=radius, animal_type=animal_type, gender=gender, vaccinated=vaccinated) }}">{{ n }}</a></li>
+                {% endfor %}
+                <li><a class="{% if page >= total_pages %}disabled{% endif %}" href="{{ url_for('nearby_animals', page=page+1, radius=radius, animal_type=animal_type, gender=gender, vaccinated=vaccinated) }}">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    window.NEARBY_POINTS = {{ map_points | tojson }};
+    window.NEARBY_RADIUS = {{ radius | int }};
+    window.NEARBY_LOCATION = { latitude: {{ user_lat }}, longitude: {{ user_lon }} };
+</script>
+<script src="{{ url_for('static', filename='js/nearby.js') }}?v=5"></script>
+{% endblock %}

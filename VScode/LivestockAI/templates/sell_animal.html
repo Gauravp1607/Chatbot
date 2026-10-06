@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | Sell Animal{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/sell-animal.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="section-block sell-layout-wrap">
+    <div class="container site-container">
+        <div class="sell-layout">
+            <form class="sell-form reveal" method="post" enctype="multipart/form-data" id="sellAnimalForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div class="section-head compact">
+                    <div>
+                        <span class="eyebrow">Step 1 of 4</span>
+                        <h2>Basic Information</h2>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="filter-group">
+                        <label>Animal Type *</label>
+                        <select name="animal_type" class="form-control hero-input" required>
+                            <option value="">Select type</option>
+                            {% for category in categories %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Breed *</label>
+                        <input type="text" name="breed" class="form-control hero-input" placeholder="Enter breed" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Age *</label>
+                        <input type="text" name="age" class="form-control hero-input" placeholder="e.g. 2 Years" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Weight *</label>
+                        <input type="text" name="weight" class="form-control hero-input" placeholder="e.g. 420 Kg" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Gender *</label>
+                        <select name="gender" class="form-control hero-input" required>
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Asking Price *</label>
+                        <input type="text" name="price" class="form-control hero-input price-input" placeholder="₹ 1,25,000" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>City *</label>
+                        <input type="text" name="city" class="form-control hero-input" placeholder="Ahmedabad" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>State *</label>
+                        <input type="text" name="state" class="form-control hero-input" placeholder="Gujarat" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Color</label>
+                        <input type="text" name="color" class="form-control hero-input" placeholder="Brown, Black, White">
+                    </div>
+                    <div class="filter-group">
+                        <label>Milk Yield</label>
+                        <input type="text" name="milk_yield" class="form-control hero-input" placeholder="e.g. 8 L/day">
+                    </div>
+                    <div class="filter-group full-span">
+                        <label>Description *</label>
+                        <textarea name="description" class="form-control hero-input textarea-input" rows="6" maxlength="500" placeholder="Describe health, vaccination, milk capacity, and temperament..." required></textarea>
+                        <div class="counter-row"><span id="charCount">0</span>/500 characters</div>
+                    </div>
+                </div>
+
+                <div class="section-head compact mt-4">
+                    <div>
+                        <span class="eyebrow">Step 2 of 4</span>
+                        <h2>Images & Media</h2>
+                    </div>
+                </div>
+
+                <div class="upload-zone" id="dropZone">
+                    <input type="file" name="images" id="imagesInput" multiple accept="image/*" hidden>
+                    <div class="upload-copy">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <h3>Drag and drop animal photos here</h3>
+                        <p>JPG, PNG, WEBP up to 10MB each. Add at least one image to continue.</p>
+                        <button class="btn btn-soft" type="button" id="chooseFilesBtn">Choose Files</button>
+                    </div>
+                </div>
+                <div class="preview-grid" id="previewGrid"></div>
+
+                <div class="section-head compact mt-4">
+                    <div>
+                        <span class="eyebrow">Step 3 of 4</span>
+                        <h2>Review & Submit</h2>
+                    </div>
+                </div>
+                <button class="btn btn-hero submit-btn" type="submit">Publish Listing</button>
+            </form>
+
+            <aside class="sell-sidebar reveal">
+                <div class="sidebar-card">
+                    <h3>Tips for Better Selling</h3>
+                    <ul>
+                        <li>Upload bright, high-resolution photos</li>
+                        <li>Mention vaccination and health details</li>
+                        <li>Add a fair and realistic price</li>
+                        <li>Respond quickly to buyers</li>
+                    </ul>
+                </div>
+                <div class="sidebar-card secure-card">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <h3>Your listing will be reviewed</h3>
+                    <p>We verify listings to keep the marketplace safe and trustworthy.</p>
+                </div>
+                <div class="sidebar-card note-card">
+                    <strong>Please Note</strong>
+                    <p>Once submitted, your listing will be reviewed before publishing.</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/sell-animal.js') }}"></script>
+{% endblock %}

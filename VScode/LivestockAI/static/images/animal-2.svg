@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Cow illustration 2">
+  <rect width="900" height="700" rx="48" fill="#f7fbff"/>
+  <path d="M0 560 C160 500, 250 620, 410 565 C590 502, 680 600, 900 540 L900 700 L0 700 Z" fill="#9dd1ff"/>
+  <g transform="translate(190 240)">
+    <ellipse cx="240" cy="170" rx="180" ry="124" fill="#f3ede2"/>
+    <ellipse cx="400" cy="150" rx="108" ry="80" fill="#f3ede2"/>
+    <ellipse cx="402" cy="141" rx="34" ry="28" fill="#b99362"/>
+    <ellipse cx="184" cy="146" rx="36" ry="28" fill="#b99362"/>
+    <rect x="170" y="258" width="28" height="118" rx="12" fill="#826049"/>
+    <rect x="276" y="258" width="28" height="118" rx="12" fill="#826049"/>
+    <rect x="386" y="258" width="28" height="118" rx="12" fill="#826049"/>
+    <rect x="492" y="258" width="28" height="118" rx="12" fill="#826049"/>
+    <path d="M452 106 C490 68, 540 72, 564 110" stroke="#826049" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M388 100 C366 60, 330 60, 314 104" stroke="#826049" stroke-width="14" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

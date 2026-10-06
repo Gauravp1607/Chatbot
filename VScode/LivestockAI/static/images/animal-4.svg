@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Sheep illustration">
+  <rect width="900" height="700" rx="48" fill="#fbfdff"/>
+  <path d="M0 560 C170 500, 260 620, 420 565 C590 505, 700 600, 900 540 L900 700 L0 700 Z" fill="#d7ecff"/>
+  <g transform="translate(210 250)">
+    <circle cx="200" cy="150" r="92" fill="#ffffff"/>
+    <circle cx="290" cy="132" r="88" fill="#ffffff"/>
+    <circle cx="382" cy="150" r="92" fill="#ffffff"/>
+    <circle cx="286" cy="205" r="118" fill="#ffffff"/>
+    <circle cx="240" cy="120" r="72" fill="#ffffff" opacity="0.96"/>
+    <circle cx="340" cy="120" r="72" fill="#ffffff" opacity="0.96"/>
+    <ellipse cx="290" cy="164" rx="54" ry="42" fill="#3d3129"/>
+    <rect x="166" y="255" width="26" height="120" rx="12" fill="#7a634f"/>
+    <rect x="252" y="255" width="26" height="120" rx="12" fill="#7a634f"/>
+    <rect x="338" y="255" width="26" height="120" rx="12" fill="#7a634f"/>
+    <rect x="424" y="255" width="26" height="120" rx="12" fill="#7a634f"/>
+  </g>
+</svg>

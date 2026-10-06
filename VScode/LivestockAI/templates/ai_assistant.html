@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}LivestockAI | AI Assistant{% endblock %}
+
+{% block styles %}
+<link href="{{ url_for('static', filename='css/support-pages.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/ai_assistant.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ai_assistant.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="section-block ai-assistant-page">
+    <div class="container site-container ai-assistant-container">
+        <div class="ai-chat-shell reveal">
+            <div class="chat-thread" id="chatThread">
+                <header class="chat-header">
+                    <div class="assistant-brand"><span aria-hidden="true">✦</span><div><strong>LivestockAI Assistant</strong><small><i></i> Online</small></div></div>
+                    <div class="chat-header-actions">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="newChat">＋ New chat</button>
+                        <button type="button" class="btn btn-soft btn-sm" id="historyToggle">◷ History</button>
+                    </div>
+                </header>
+                <div class="chat-history-area" id="chatHistory">
+                    <div class="saved-chat-panel" id="savedChats" hidden aria-label="Saved chat history"></div>
+                    <div class="assistant-welcome" id="welcomeScreen">
+                        <h1>Hello! <span aria-hidden="true">👋</span></h1>
+                        <p>I'm your LivestockAI Assistant. I can help you search livestock listings, find animals by price, breed, location and health status, and answer general livestock questions.</p>
+                    </div>
+                </div>
+                <form class="chat-input-bar" method="post" id="chatForm" data-endpoint="{{ url_for('ai_chat_api') }}" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <div class="image-preview-container" id="imagePreviewContainer" hidden>
+                        <div class="image-preview-wrapper">
+                            <img id="imagePreviewImg" class="image-preview-img" alt="Selected image preview">
+                            <button type="button" class="btn-remove-image" id="removeImageButton" title="Remove image" aria-label="Remove selected image">
+                                <i class="fa-solid fa-x" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <textarea name="question" class="form-control hero-input" placeholder="Ask anything about LivestockAI..." rows="1"></textarea>
+                    <button type="button" class="btn btn-outline-secondary voice-input-btn" id="voiceInputButton" aria-label="Voice input" title="Voice input"><i class="fa-solid fa-microphone" aria-hidden="true"></i><span class="visually-hidden" id="voiceInputLabel">Speak</span></button>
+                    <button type="button" class="btn btn-outline-secondary upload-btn" id="uploadImageButton" title="Add an image file for analysis">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <span class="visually-hidden">Add file or image</span>
+                    </button>
+                    <input id="chatImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="visually-hidden" name="image">
+                    <button class="btn btn-hero" type="submit" aria-label="Send message"><span>Send</span> <span aria-hidden="true">➜</span></button>
+                </form>
+                <span class="voice-input-status" id="voiceInputStatus" role="status" aria-live="polite"></span>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="application/json" id="savedChatData">{{ chat_history|tojson }}</script>
+{% endblock %}

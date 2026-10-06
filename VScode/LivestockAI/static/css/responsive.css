@@ -1,0 +1,513 @@
+/* 
+==================================================================
+  LivestockAI - Mobile Responsive & App-Like Touch Design System
+  Loaded for seamless mobile smartphone experience & WebView App
+==================================================================
+*/
+
+/* ---------------------------------------------------------------
+   1. Mobile Bottom Navigation Dock (Screens <= 768px)
+------------------------------------------------------------------ */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 72px !important; /* Prevent content overlap with bottom dock */
+    }
+
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 66px;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(20, 122, 69, 0.12);
+        box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        z-index: 2000;
+        padding: 0 4px;
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        text-decoration: none;
+        color: #64748b;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        padding: 4px 0;
+    }
+
+    .mobile-nav-item i {
+        font-size: 1.25rem;
+        margin-bottom: 3px;
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-nav-item:hover,
+    .mobile-nav-item:focus {
+        color: var(--primary, #147a45);
+    }
+
+    .mobile-nav-item.active {
+        color: var(--primary, #147a45);
+        font-weight: 700;
+    }
+
+    .mobile-nav-item.active i {
+        transform: translateY(-2px);
+    }
+
+    /* Raised Center Action (Sell Button) */
+    .mobile-nav-item-primary {
+        position: relative;
+        top: -12px;
+    }
+
+    .mobile-nav-fab {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #147a45 0%, #2caa65 100%);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 16px rgba(20, 122, 69, 0.35);
+        border: 3px solid #ffffff;
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-nav-fab i {
+        font-size: 1.15rem;
+        margin-bottom: 0;
+        color: #ffffff !important;
+    }
+
+    .mobile-nav-item-primary.active .mobile-nav-fab {
+        transform: scale(1.08);
+    }
+}
+
+/* Hide mobile bottom nav on desktop/tablet */
+@media (min-width: 769px) {
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   2. Header, Navbar & Mobile Navigation Drawer
+------------------------------------------------------------------ */
+.mobile-toggler-btn {
+    border: 1px solid var(--border, #dfe8e2) !important;
+    background: rgba(20, 122, 69, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 8px 12px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease;
+}
+
+.mobile-toggler-btn:hover,
+.mobile-toggler-btn:focus,
+.mobile-toggler-btn:active {
+    background: rgba(20, 122, 69, 0.16) !important;
+    border-color: var(--primary, #147a45) !important;
+}
+
+@media (max-width: 991.98px) {
+    .site-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1040;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .site-navbar .site-container {
+        flex-wrap: wrap !important;
+    }
+
+    .navbar-collapse {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        background: #ffffff !important;
+        border: 1px solid var(--border, #dfe8e2) !important;
+        border-radius: 18px !important;
+        padding: 1.5rem 1.25rem !important;
+        margin-top: 0.85rem !important;
+        box-shadow: 0 16px 40px rgba(20, 35, 27, 0.2) !important;
+        min-height: 420px !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+    }
+
+    .navbar-collapse.show {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .nav-links {
+        width: 100%;
+        margin: 0 !important;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .nav-links .nav-link {
+        padding: 0.85rem 1.1rem !important;
+        border-radius: 12px;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        background: var(--surface-subtle, #f8faf9);
+        border: 1px solid var(--border, #dfe8e2);
+        color: var(--text, #14231b) !important;
+        transition: all 0.2s ease;
+    }
+
+    .nav-links .nav-link:hover,
+    .nav-links .nav-link.active {
+        background: var(--primary-soft, #eaf7ef);
+        color: var(--primary, #147a45) !important;
+    }
+
+    .nav-actions {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 0.75rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border, #dfe8e2);
+    }
+
+    .nav-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   3. Fluid Typography & Touch Target Optimizations
+------------------------------------------------------------------ */
+@media (max-width: 768px) {
+    /* Touch friendly form inputs to prevent iOS auto-zoom */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    select,
+    textarea,
+    .form-control,
+    .form-select,
+    .hero-input {
+        font-size: 16px !important;
+        min-height: 48px;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+    }
+
+    .btn, .site-btn, .btn-hero, .btn-view, .btn-primary, .btn-secondary, .btn-soft {
+        min-height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-block {
+        padding: 2.25rem 0 !important;
+    }
+
+    .page-hero, .dashboard-hero, .sell-hero, .disease-hero, .nearby-hero, .animals-hero, .detail-hero {
+        padding: 2.25rem 0 1.25rem !important;
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   4. Homepage & Marketplace Grid Responsiveness
+------------------------------------------------------------------ */
+@media (max-width: 1199px) {
+    .hero-grid,
+    .animals-hero-inner,
+    .animals-layout,
+    .detail-card,
+    .footer-grid,
+    .sell-grid,
+    .disease-grid,
+    .nearby-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+    .filter-panel {
+        position: static !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .category-grid,
+    .stats-grid,
+    .testimonial-grid,
+    .animal-grid-home,
+    .animal-grid-page {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    .reference-hero,
+    .reference-hero .hero-grid {
+        min-height: auto !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* 1 column grid for smartphones */
+    .category-grid,
+    .stats-grid,
+    .testimonial-grid,
+    .animal-grid-home,
+    .animal-grid-page,
+    .nearby-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .hero-search,
+    .animals-search {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+    }
+
+    .hero-search input,
+    .hero-search button,
+    .animals-search input,
+    .animals-search select,
+    .animals-search button {
+        width: 100% !important;
+    }
+
+    .section-head,
+    .animals-toolbar,
+    .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem;
+    }
+
+    .animal-card-image {
+        height: 200px !important;
+    }
+
+    /* Swipeable horizontal category chips container */
+    .category-scroll-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 0.75rem;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .category-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   5. Animal Detail Page Mobile Layout
+------------------------------------------------------------------ */
+@media (max-width: 768px) {
+    .detail-card {
+        padding: 1.25rem !important;
+        border-radius: 16px !important;
+    }
+
+    .detail-gallery {
+        height: 240px !important;
+        border-radius: 14px !important;
+    }
+
+    .detail-meta-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+
+    .detail-meta-item {
+        padding: 0.85rem !important;
+    }
+
+    /* Mobile Quick Buy Bar */
+    .mobile-buy-bar {
+        position: fixed;
+        bottom: 66px; /* Above bottom nav dock */
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        padding: 0.85rem 1rem;
+        border-top: 1px solid var(--border, #dfe8e2);
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1040;
+    }
+
+    .mobile-buy-bar .price-tag {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--primary, #147a45);
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   6. AI Chat & Disease Detection Scanner Mobile UI
+------------------------------------------------------------------ */
+@media (max-width: 768px) {
+    .chat-shell {
+        height: calc(100vh - 170px) !important;
+        border-radius: 16px !important;
+    }
+
+    .chat-history {
+        padding: 1rem !important;
+    }
+
+    .chat-message {
+        max-width: 88% !important;
+    }
+
+    .disease-upload-card {
+        min-height: 220px !important;
+        padding: 1.5rem 1rem !important;
+    }
+
+    .disease-result-card {
+        padding: 1.25rem !important;
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   7. Dashboards & Tables Mobile Scrollability
+------------------------------------------------------------------ */
+@media (max-width: 991px) {
+    .table-responsive {
+        border-radius: 12px;
+        border: 1px solid var(--border, #dfe8e2);
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table {
+        min-width: 650px;
+    }
+
+    .stat-card-grid,
+    .dashboard-metrics {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.85rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .stat-card-grid,
+    .dashboard-metrics {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* ---------------------------------------------------------------
+   8. Global Website Image Resizing & Mobile Optimization
+------------------------------------------------------------------ */
+.animal-image-wrap,
+.animal-card-image {
+    width: 100%;
+    height: 210px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px 16px 0 0;
+    background: #f1f5f3;
+}
+
+.animal-image-wrap img,
+.animal-card img,
+.animal-card-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    transition: transform 0.3s ease;
+}
+
+.animal-card:hover img {
+    transform: scale(1.04);
+}
+
+.detail-image {
+    width: 100%;
+    height: 320px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #f1f5f3;
+}
+
+.detail-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+@media (max-width: 768px) {
+    .animal-image-wrap,
+    .animal-card-image {
+        height: 185px !important;
+    }
+
+    .detail-image {
+        height: 240px !important;
+        border-radius: 14px !important;
+    }
+
+    .disease-banner img,
+    .hero-reference-image {
+        max-height: 200px !important;
+        border-radius: 14px !important;
+    }
+
+    /* Hide website footer and back-to-top button in mobile app & mobile screens */
+    .site-footer,
+    #footer,
+    .back-to-top,
+    footer {
+        display: none !important;
+    }
+}
+
+/* Explicit rule for Android App WebView */
+body.is-android-app .site-footer,
+body.is-android-app #footer,
+body.is-android-app .back-to-top,
+body.is-android-app footer {
+    display: none !important;
+}
